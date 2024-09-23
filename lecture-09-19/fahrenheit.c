@@ -13,12 +13,12 @@
 int main() {
 	
 	
-	int celsius; // contém o valor de uma temperatura em graus celsius
+	float celsius; // contém o valor de uma temperatura em graus celsius
 	
 	printf("Indique o valor em graus celsius: ");
-	scanf("%d", &celsius);
+	scanf("%f", &celsius);
 	
-	printf("%d graus celsius são %f fahrenheit!\n", celsius, celsius*(9.0/5) + 32);
+	printf("%.2f graus celsius são %.2f fahrenheit!\n", celsius, celsius*(9.0/5) + 32);
 	return 0;
 	
 }
