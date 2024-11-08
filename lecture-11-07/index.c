@@ -10,9 +10,32 @@
 
 /**
  * retira não letras do início e do fim da string
+ * Pode produzir uma string vazia caso a string recebida não tenha letras
  */
 void normalize(char str[]) {
-    printf("normalize not implemented!\n");
+     int start, end;
+     
+     start = 0;
+     // descarta os caracteres iniciais não letra
+     while(!isalpha(str[start]) && str[start] != 0) {
+         start++;
+     }
+     end = strlen(str);
+     
+     // descarta os caracteres finais não letra
+     while(!isalpha(str[end-1]) &&  end > start) {
+         end--;
+     }
+     
+     int size = end - start;
+     
+     for(int i=0; i < size; ++i) {
+         // converte as letras para minusculas
+         // colocando-as na posição final
+         str[i] = tolower(str[start + i]);
+     }
+     str[size] = 0;
+     
 }
 
 
@@ -37,9 +60,11 @@ int process_line(const char line[], int line_num) {
     
     for(int i=0; i < nparts; ++i) {
         normalize(parts[i]);
-        int err = db_index_add_or_update(parts[i], line_num);
-        if (err != OK) {
-            return err;
+        if (strlen(parts[i]) > 0) {
+            int err = db_index_add_or_update(parts[i], line_num);
+            if (err != OK) {
+                return err;
+            }
         }
     }
     return OK;

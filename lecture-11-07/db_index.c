@@ -68,10 +68,37 @@ int db_index_add_or_update(const char word[], int line_num) {
     return OK;
 }
 
+
+/**
+ * ordena o index alfabeticamente pela palavra
+ * associada a cada word_entry_t
+ */
+void db_sort() {
+    for(int i= db_index_size - 1; i > 0; --i) {
+        int p_greater = 0;
+        word_entry_t greater = db_index[0];
+        
+        for(int j = 1; j <= i; j++) {
+            if (strcmp(db_index[j].word, greater.word) > 0) {
+                greater = db_index[j];
+                p_greater = j;
+            }
+        }
+        db_index[p_greater] = db_index[i];
+        db_index[i] = greater;
+    }
+    
+}
+
+#define MAX_OCORRS_PER_LINE 20
 void db_entry_show(word_entry_t entry) {
+    db_sort();
     printf("%-20s: ", entry.word);
     
     for(int i= 0; i < entry.nocorrs; ++i) {
+        if (i > 0 && i % MAX_OCORRS_PER_LINE == 0) {
+            printf("\n%-20s: ", " ");
+        }
         printf("%4d", entry.ocorrs[i]);
     }
     printf("\n");
