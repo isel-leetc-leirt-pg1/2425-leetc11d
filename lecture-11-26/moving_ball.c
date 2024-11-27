@@ -1,5 +1,5 @@
 /**
- * Movimento horizontal de uma bola contínuo e constante para um lado e 
+ * Movimento horizontal,  de uma bola para um lado e 
  * para o outro da janela gráfica. Ilustra a forma como se produz movimento
  * 
  * Compilação:
